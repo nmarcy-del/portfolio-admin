@@ -1,0 +1,4 @@
+/node_modules
+/specific/.env.local
+/specific/Dockerfile.local
+/specific/Dockerfile.prod
