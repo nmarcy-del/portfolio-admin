@@ -1,13 +1,15 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import { SlClose } from "react-icons/sl";
-import axiosInstance from "config/axiosInstance"
+import axiosInstance from "config/axiosInstance";
 import appConf from "config/config";
 import ModalCancelButton from "components/commons/modals/ModalCancelButton";
 import ModalCtaButton from "components/commons/modals/ModalCtaButton";
 
 const DeleteModal = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleDelete = (event) => {
     if (props.itemId !== "CV") {
@@ -27,7 +29,24 @@ const DeleteModal = (props) => {
           });
         })
         .catch((error) => {
-          console.log(error);
+
+          if (error.response) {
+            console.log(error.response);
+          } else {
+            console.log(error);
+          }
+
+          if (
+            error.response &&
+            error.response.status &&
+            error.response.status === 401
+          ) {
+            console.log(error.response.status);
+            sessionStorage.removeItem("jwt-token");
+            dispatch({ type: "SESSION_EXPIRED" });
+            navigate("/");
+          }
+
           dispatch({
             type: "HANDLE_AFTER_ERROR",
             message: `Erreur lors de la suppression de ${props.itemName}`,
@@ -38,26 +57,40 @@ const DeleteModal = (props) => {
     if (props.itemId === "CV") {
       event.preventDefault();
       axiosInstance
-      .delete(
-        `${appConf.backendApiEndpoint}cv`,
-        {
+        .delete(`${appConf.backendApiEndpoint}cv`, {
           //headers: headers,
           withCredentials: true,
-        }
-      )
-      .then((response) => {
-        dispatch({
-          type: "HANDLE_AFTER_SUCCESS",
-          message: `Votre CV à été supprimé`,
+        })
+        .then((response) => {
+          dispatch({
+            type: "HANDLE_AFTER_SUCCESS",
+            message: `Votre CV à été supprimé`,
+          });
+        })
+        .catch((error) => {
+
+          if (error.response) {
+            console.log(error.response);
+          } else {
+            console.log(error);
+          }
+
+          if (
+            error.response &&
+            error.response.status &&
+            error.response.status === 401
+          ) {
+            console.log(error.response.status);
+            sessionStorage.removeItem("jwt-token");
+            dispatch({ type: "SESSION_EXPIRED" });
+            navigate("/");
+          }
+
+          dispatch({
+            type: "HANDLE_AFTER_ERROR",
+            message: `Erreur lors de la tentative de supression du CV`,
+          });
         });
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch({
-          type: "HANDLE_AFTER_ERROR",
-          message: `Erreur lors de la tentative de supression du CV`,
-        });
-      });
     }
   };
 
@@ -71,15 +104,14 @@ const DeleteModal = (props) => {
         <SlClose className="mx-auto text-red-600" size={48} />
         <p className="mt-5 text-gray-300 text-lg">Êtes-vous sûr ?</p>
         {props.itemId && props.itemId !== "CV" && (
-        <p className="mt-2 text-gray-500 text-sm">
-          Vous allez supprimer "{props.itemName}", cette action est
-          irréversible.
-        </p>
+          <p className="mt-2 text-gray-500 text-sm">
+            Vous allez supprimer "{props.itemName}", cette action est
+            irréversible.
+          </p>
         )}
         {props.itemId === "CV" && (
           <p className="mt-2 text-gray-500 text-sm">
-            Vous allez supprimer votre CV, cette action est
-            irréversible.
+            Vous allez supprimer votre CV, cette action est irréversible.
           </p>
         )}
       </div>

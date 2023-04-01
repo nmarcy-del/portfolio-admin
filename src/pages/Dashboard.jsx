@@ -6,7 +6,7 @@ import Footer from "components/commons/Footer";
 const Dashboard = () => {
   return (
     <div>
-      <div className="min-h-screen bg-gray-800 flex">
+      <div className="min-h-[90vh] bg-gray-800 flex">
         <div className="md:flex lg:flex flew-row w-auto md:w-64 lg:w-64">
           <SideBar />
         </div>

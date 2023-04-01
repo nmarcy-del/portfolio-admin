@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import axiosInstance from "config/axiosInstance";
 import appConf from "config/config";
 import ModalCancelButton from "components/commons/modals/ModalCancelButton";
@@ -9,6 +10,8 @@ import FormTextArea from "components/commons/modals/FormTextArea";
 
 const SkillsAndToolsFormContent = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     name: "",
     img: "",
@@ -27,9 +30,27 @@ const SkillsAndToolsFormContent = (props) => {
           `${appConf.backendBaseUrl}${appConf.backendApiEndpoint}${props.apiUrl}/${props.itemId}`
         )
         .then((res) => setForm(res.data))
-        .catch((err) => console.log(err));
+        .catch((error) => {
+
+          if (error.response) {
+            console.log(error.response);
+          } else {
+            console.log(error);
+          }
+
+          if (
+            error.response &&
+            error.response.status &&
+            error.response.status === 401
+          ) {
+            console.log(error.response.status);
+            sessionStorage.removeItem("jwt-token");
+            dispatch({ type: "SESSION_EXPIRED" });
+            navigate("/");
+          }
+        });
     }
-  }, [props.itemId, props.apiUrl]);
+  }, [props.itemId, props.apiUrl, dispatch, navigate]);
 
   const handleCancel = () => {
     dispatch({ type: "HANDLE_CLOSE_ACTION" });
@@ -73,7 +94,24 @@ const SkillsAndToolsFormContent = (props) => {
           });
         })
         .catch((error) => {
-          console.log(error);
+
+          if (error.response) {
+            console.log(error.response);
+          } else {
+            console.log(error);
+          }
+
+          if (
+            error.response &&
+            error.response.status &&
+            error.response.status === 401
+          ) {
+            console.log(error.response.status);
+            sessionStorage.removeItem("jwt-token");
+            dispatch({ type: "SESSION_EXPIRED" });
+            navigate("/");
+          }
+
           dispatch({
             type: "HANDLE_AFTER_ERROR",
             message: `Erreur lors de l'édition de ${props.itemName}`,
@@ -96,7 +134,24 @@ const SkillsAndToolsFormContent = (props) => {
           });
         })
         .catch((error) => {
-          console.log(error);
+
+          if (error.response) {
+            console.log(error.response);
+          } else {
+            console.log(error);
+          }
+
+          if (
+            error.response &&
+            error.response.status &&
+            error.response.status === 401
+          ) {
+            console.log(error.response.status);
+            sessionStorage.removeItem("jwt-token");
+            dispatch({ type: "SESSION_EXPIRED" });
+            navigate("/");
+          }
+
           dispatch({
             type: "HANDLE_AFTER_ERROR",
             message: `Erreur lors de l'ajout d'un nouvel élément`,

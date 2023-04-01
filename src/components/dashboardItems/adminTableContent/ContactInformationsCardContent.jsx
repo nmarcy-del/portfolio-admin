@@ -50,8 +50,8 @@ const ContactInformationsCardContent = ({ item }) => {
               </div>
             </div>
             <div className="mr-12 lg:ml-6 md:ml-6 mt-8 mr-0 mb-0 pt-0 pr-0 pb-0 pl-0 flex flex-row md:flex-row lg:flex-row items-center justify-center md:w-1/6">
-              <EditButton itemId={item._id} itemName={item.title} />
-              <DeleteButton itemId={item._id} itemName={item.title} />
+              <EditButton itemId={item._id} itemName={item.addressName} />
+              <DeleteButton itemId={item._id} itemName={item.addressName} />
             </div>
           </div>
         </div>

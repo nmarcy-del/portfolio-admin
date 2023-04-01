@@ -3,7 +3,7 @@ import { BiCheckCircle, BiX } from "react-icons/bi";
 
 const SuccessAlert = ({ message, onClick }) => {
   return (
-    <div className="flex justify-center items-center m-1 font-medium py-3 px-2 text-green-100 bg-green-700 border border-green-700 ">
+    <div className="flex justify-center items-center m-1 font-medium py-3 px-2 text-green-100 bg-green-700 border border-green-700 z-50">
       <BiCheckCircle size={28} className="mr-3 text-size-lg flex-shrink-0" />
       <div className="text-sm font-normal  max-w-full flex-initial">
         {message}

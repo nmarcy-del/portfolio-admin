@@ -12,6 +12,8 @@ const PdfViewer = (props) => {
   const [width, setWidth] = useState(565);
   const [maxWidth, setMaxWidth] = useState(565);
   const [scale, setScale] = useState(1);
+  const [buttonTop, setButtonTop] = useState(50);
+  const [buttonRight, setButtonRight] = useState(300);
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
@@ -38,21 +40,29 @@ const PdfViewer = (props) => {
         setMaxHeight(989);
         setWidth(700);
         setMaxWidth(700);
+        setButtonTop(50);
+        setButtonRight(300);
       } else if (screenWidth >= 768) {
         setHeight(700);
         setMaxHeight(700)
         setWidth(480);
         setMaxWidth(480)
+        setButtonTop(40);
+        setButtonRight(175);
       } else if (screenWidth >= 385) {
         setHeight(450);
         setMaxHeight(450)
         setWidth(360);
         setMaxWidth(360)
+        setButtonTop(40);
+        setButtonRight(130);
       } else {
         setHeight(400);
         setMaxHeight(400)
         setWidth(320);
         setMaxWidth(320)
+        setButtonTop(40);
+        setButtonRight(110);
       }
     }
 
@@ -70,14 +80,22 @@ const PdfViewer = (props) => {
       <div className="flex flex-col items-center">
         <div className="mt-1">
           <button
-            className="relative top-[3rem] right-[7.5rem] md:right-[12rem] lg:right-[19rem] text-white bg-gray-700 opacity-50 px-4 py-1"
+            className="relative text-white bg-gray-700 opacity-50 px-4 py-1"
             onClick={handleZoomIn}
+            style={{
+              top: scale < 1 ? buttonTop * scale : buttonTop,
+              right: scale < 1 ? buttonRight * scale - 10 : buttonRight,
+            }}
           >
             +
           </button>
           <button
-            className="relative top-[3rem] right-[7.5rem] md:right-[12rem] lg:right-[19rem] text-white bg-gray-700 opacity-50 px-4 py-1"
+            className="relative md:right-[12rem] lg:right-[19rem] text-white bg-gray-700 opacity-50 px-4 py-1"
             onClick={handleZoomOut}
+            style={{
+              top: scale < 1 ? buttonTop * scale : buttonTop,
+              right: scale < 1 ? buttonRight * scale - 10 : buttonRight 
+            }}
           >
             -
           </button>
@@ -88,9 +106,9 @@ const PdfViewer = (props) => {
               className="overflow-auto b-green-500 bg-gray-700"
               style={{
                 maxHeight: maxHeight,
-                minHeight: scale < 1 ? height * scale - 20 : height - 20,
+                minHeight: scale < 1 ? height * scale - 80 : height - 80,
                 maxWidth: maxWidth,
-                minWidth: scale < 1 ? width * scale : width - 20,
+                minWidth: scale < 1 ? width * scale : width,
               }}
             >
               <Document

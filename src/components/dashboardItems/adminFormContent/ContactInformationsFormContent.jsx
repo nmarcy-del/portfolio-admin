@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import axiosInstance from "config/axiosInstance";
 import appConf from "config/config";
 import ModalCancelButton from "components/commons/modals/ModalCancelButton";
@@ -9,6 +10,7 @@ import FormOneLineField from "components/commons/modals/FormOneLineField";
 
 const ContactInformationsFormContent = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     addressName: "",
     name: "",
@@ -19,13 +21,19 @@ const ContactInformationsFormContent = (props) => {
     phone: "",
     email: "",
     linkedin: "",
-    github: ""
+    github: "",
   });
-  const [titleSectionError, setTitleSectionError] = useState({
+  const [namesError, setNamesError] = useState({
     message1: null,
     message2: null,
   });
-  const [contentError, setContentError] = useState({ message: null });
+  const [cityNpaError, setCityNpaError] = useState({
+    message1: null,
+    message2: null,
+  });
+  const [addressError, setAddressError] = useState({ message: null });
+  const [emailError, setEmailError] = useState({ message: null });
+
   const handleFormChange = (event) => {
     const { name, value } = event.target;
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
@@ -38,9 +46,27 @@ const ContactInformationsFormContent = (props) => {
           `${appConf.backendBaseUrl}${appConf.backendApiEndpoint}${props.apiUrl}/${props.itemId}`
         )
         .then((res) => setForm(res.data))
-        .catch((err) => console.log(err));
+        .catch((error) => {
+
+          if (error.response) {
+            console.log(error.response);
+          } else {
+            console.log(error);
+          }
+          
+          if (
+            error.response &&
+            error.response.status &&
+            error.response.status === 401
+          ) {
+            console.log(error.response.status);
+            sessionStorage.removeItem("jwt-token");
+            dispatch({ type: "SESSION_EXPIRED" });
+            navigate("/");
+          }
+        });
     }
-  }, [props.itemId, props.apiUrl]);
+  }, [props.itemId, props.apiUrl, navigate, dispatch]);
 
   const handleCancel = () => {
     dispatch({ type: "HANDLE_CLOSE_ACTION" });
@@ -48,27 +74,51 @@ const ContactInformationsFormContent = (props) => {
 
   const handleSubmit = (form) => {
     if (
-      form.title === "" ||
-      !form.title ||
-      form.section === "" ||
-      !form.section
+      form.addressName === "" ||
+      !form.addressName ||
+      form.name === "" ||
+      !form.name
     ) {
-      if (form.title === "" || !form.title) {
-        setTitleSectionError({ message1: "Veuillez saisir un titre" });
+      if (form.name === "" || !form.name) {
+        setNamesError({ message2: "Veuillez saisir votre nom complet" });
       }
-      if (form.section === "" || !form.section) {
-        setTitleSectionError({ message2: "Veuillez saisir une section" });
+      if (form.addressName === "" || !form.addressName) {
+        setNamesError({ message1: "Veuillez saisir un nom d'adresse" });
       }
       return;
     } else {
-      setTitleSectionError({ message1: null, message2: null });
+      setNamesError({ message1: null, message2: null });
     }
 
-    if (form.content === "" || !form.content) {
-      setContentError({ message: "Le contenu ne peut être vide" });
+    if (form.addressL1 === "" || !form.addressL1) {
+      setAddressError({ message: "L'adresse ne peut être vide" });
       return;
     } else {
-      setContentError({ message: null });
+      setAddressError({ message: null });
+    }
+
+    if (
+      form.postalCode === "" ||
+      !form.postalCode ||
+      form.city === "" ||
+      !form.city
+    ) {
+      if (form.city === "" || !form.city) {
+        setCityNpaError({ message2: "Veuillez saisir une ville" });
+      }
+      if (form.postalCode === "" || !form.postalCode) {
+        setCityNpaError({ message1: "Veuillez saisir un code postal" });
+      }
+      return;
+    } else {
+      setCityNpaError({ message1: null, message2: null });
+    }
+
+    if (form.email === "" || !form.email) {
+      setEmailError({ message: "L'email ne peut être vide" });
+      return;
+    } else {
+      setEmailError({ message: null });
     }
 
     if (props.itemId) {
@@ -88,7 +138,24 @@ const ContactInformationsFormContent = (props) => {
           });
         })
         .catch((error) => {
-          console.log(error);
+
+          if (error.response) {
+            console.log(error.response);
+          } else {
+            console.log(error);
+          }
+
+          if (
+            error.response &&
+            error.response.status &&
+            error.response.status === 401
+          ) {
+            console.log(error.response.status);
+            sessionStorage.removeItem("jwt-token");
+            dispatch({ type: "SESSION_EXPIRED" });
+            navigate("/");
+          }
+
           dispatch({
             type: "HANDLE_AFTER_ERROR",
             message: `Erreur lors de l'édition de ${props.itemName}`,
@@ -107,11 +174,28 @@ const ContactInformationsFormContent = (props) => {
         .then((response) => {
           dispatch({
             type: "HANDLE_AFTER_SUCCESS",
-            message: `${form.title} à bien été ajouté`,
+            message: `${form.addressName} à bien été ajouté`,
           });
         })
         .catch((error) => {
-          console.log(error);
+
+          if (error.response) {
+            console.log(error.response);
+          } else {
+            console.log(error);
+          }
+
+          if (
+            error.response &&
+            error.response.status &&
+            error.response.status === 401
+          ) {
+            console.log(error.response.status);
+            sessionStorage.removeItem("jwt-token");
+            dispatch({ type: "SESSION_EXPIRED" });
+            navigate("/");
+          }
+
           dispatch({
             type: "HANDLE_AFTER_ERROR",
             message: `Erreur lors de l'ajout d'un nouvel élément`,
@@ -142,7 +226,7 @@ const ContactInformationsFormContent = (props) => {
           value2={form.name}
           onChange2={handleFormChange}
           mandatory2={true}
-          error={titleSectionError}
+          error={namesError}
         />
         <FormOneLineField
           label="Adresse"
@@ -151,7 +235,7 @@ const ContactInformationsFormContent = (props) => {
           value={form.addressL1}
           onChange={handleFormChange}
           mandatory={true}
-          error={contentError}
+          error={addressError}
         />
         <FormOneLineField
           label="Complément d'adresse"
@@ -159,8 +243,6 @@ const ContactInformationsFormContent = (props) => {
           name="addressL2"
           value={form.addressL2}
           onChange={handleFormChange}
-          mandatory={true}
-          error={contentError}
         />
         <FormTwoFieldOnLine
           label1="Code postal"
@@ -175,7 +257,7 @@ const ContactInformationsFormContent = (props) => {
           value2={form.city}
           onChange2={handleFormChange}
           mandatory2={true}
-          error={titleSectionError}
+          error={cityNpaError}
         />
         <FormOneLineField
           label="Téléphone"
@@ -183,8 +265,6 @@ const ContactInformationsFormContent = (props) => {
           name="phone"
           value={form.phone}
           onChange={handleFormChange}
-          mandatory={true}
-          error={contentError}
         />
         <FormOneLineField
           label="E-mail"
@@ -193,7 +273,7 @@ const ContactInformationsFormContent = (props) => {
           value={form.email}
           onChange={handleFormChange}
           mandatory={true}
-          error={contentError}
+          error={emailError}
         />
         <FormOneLineField
           label="Linkedin"
@@ -201,17 +281,13 @@ const ContactInformationsFormContent = (props) => {
           name="linkedin"
           value={form.linkedin}
           onChange={handleFormChange}
-          mandatory={true}
-          error={contentError}
         />
         <FormOneLineField
-          label="Linkedin"
+          label="Github"
           type="text"
           name="github"
           value={form.github}
           onChange={handleFormChange}
-          mandatory={true}
-          error={contentError}
         />
       </div>
       <div className="flex space-x-4 mx-auto">

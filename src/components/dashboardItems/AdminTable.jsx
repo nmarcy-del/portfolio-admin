@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import axiosInstance from "config/axiosInstance";
 import appConf from "config/config";
 import Modal from "components/commons/modals/Modal";
@@ -11,6 +12,8 @@ const AdminTable = (props) => {
   const [sortedItems, setSortedItems] = useState([]);
   // refresh is used to trigger a table refresh when needed.
   const [refresh, setRefresh] = useState(false);
+  // hide add button for contact if we have already saved contact
+  const [hideNewContactButton, setHideNewContactButton] = useState(false);
   // sortOrder is used to determine the sorting order of the table.
   const sortOrder = useSelector((state) => state.dashboard.sortOrder);
   // modalOptions contains the options for the Modal component.
@@ -19,6 +22,7 @@ const AdminTable = (props) => {
   const queueMessage = useSelector((state) => state.modal.notification) || {};
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // errorAlert et successAlert sont des booléens pour déterminer si une alerte d'erreur ou de succès doit être affichée.
   const errorAlert = queueMessage && queueMessage.code === "error";
@@ -59,17 +63,38 @@ const AdminTable = (props) => {
         }
       )
       .then((response) => {
+        if (props.apiUrl === "contacts" && response.data.length > 0) {
+          setHideNewContactButton(true);
+        } else {
+          setHideNewContactButton(false);
+        }
         const sortedItems = sortItems(response.data, sortOrder, getSortField());
         setSortedItems(sortedItems);
       })
       .catch((error) => {
-        console.log(error);
+        
+        if (error.response) {
+          console.log(error.response);
+        } else {
+          console.log(error);
+        }
+
+        if (
+          error.response &&
+          error.response.status &&
+          error.response.status === 401
+        ) {
+          console.log(error.response.status);
+          sessionStorage.removeItem("jwt-token");
+          dispatch({ type: "SESSION_EXPIRED" });
+          navigate("/");
+        }
       });
 
     if (modalOptions.refresh) {
       setRefresh(true);
     }
-  }, [props.apiUrl, modalOptions.refresh, sortOrder, sortItems, getSortField]);
+  }, [props.apiUrl, modalOptions.refresh, sortOrder, sortItems, getSortField, navigate, dispatch]);
 
   useEffect(() => {
     if (modalOptions.refresh) {
@@ -97,6 +122,7 @@ const AdminTable = (props) => {
         apiUrl={props.apiUrl}
         CardContent={props.CardContent}
         sortOrder={sortOrder}
+        hideNewContact={hideNewContactButton}
       />
       <Alerts
         showSuccessAlert={successAlert}

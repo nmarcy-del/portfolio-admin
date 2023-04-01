@@ -11,6 +11,7 @@ const AdminCard = (props) => {
             apiUrl={props.apiUrl}
             desc={props.desc}
             sortOrder={props.sortOrder}
+            hideNewContact={props.hideNewContact}
           />
           {props.items.map((item, index) => (
             <props.CardContent key={index} item={item} apiUrl={props.apiUrl} />

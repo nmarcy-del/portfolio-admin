@@ -11,7 +11,7 @@ const NotFound = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-800 flex flex-col justify-center items-center mx-auto">
+    <div className="min-h-[90vh] bg-gray-800 flex flex-col justify-center items-center mx-auto">
       <h1 className="text-gray-200  text-6xl md:text-6xl lg:text-8xl mb-5">Oops..</h1>
       <h2 className="text-gray-500 text-2xl md:text-2xl lg:text-4xl mb-2">Page Introuvable</h2>
         <p className="text-gray-400 text-md md:text-md lg:text-2xl mb-20 text-center">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BsSortDownAlt, BsSortUpAlt } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import AddButton from "components/commons/dashboard/AddButton";
@@ -6,6 +6,8 @@ import AddButton from "components/commons/dashboard/AddButton";
 const CardHeader = (props) => {
   const dispatch = useDispatch();
   const newSortOrder = props.sortOrder === "asc" ? "desc" : "asc";
+
+  useEffect(() => {}, [props.hideNewContact]);
 
   const handleSortOrder = () => {
     dispatch({ type: "HANDLE_CHANGE_SORT_ORDER", sortOrder: newSortOrder });
@@ -37,7 +39,7 @@ const CardHeader = (props) => {
             {props.desc}
           </p>
         </div>
-        {props.apiUrl !== "contacts" && (
+        {!props.hideNewContact && (
           <div className="mt-4">
             <AddButton />
           </div>

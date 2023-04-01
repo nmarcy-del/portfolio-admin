@@ -6,12 +6,12 @@ const Alerts = ({ showSuccessAlert, showErrorAlert, message, closeAlert }) => {
   return (
     <>
       {showSuccessAlert && (
-        <div className="fixed bottom-20 right-0">
+        <div className="fixed bottom-0 right-0 z-50">
           <SuccessAlert message={message} onClick={closeAlert} />
         </div>
       )}
       {showErrorAlert && (
-        <div className="fixed top-0 left-0 w-full">
+        <div className="fixed top-14 left-0 w-full z-50">
           <ErrorAlert message={message} onClick={closeAlert} />
         </div>
       )}
