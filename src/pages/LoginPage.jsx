@@ -72,6 +72,7 @@ const LoginPage = () => {
       dispatch({
         type: "LOGIN_SUCCESS",
         adminUsername: response.data.username,
+        adminCanEdit: response.data.canEdit
       });
       navigate("/dashboard/home");
 

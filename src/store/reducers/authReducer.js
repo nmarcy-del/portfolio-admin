@@ -3,6 +3,7 @@ const initialState = {
   expirationTime: null,
   authNotification: { code: "", message: "" },
   adminUsername: "",
+  adminCanEdit: "",
 };
 
 const authReducer = (state = initialState, action) => {
@@ -15,6 +16,7 @@ const authReducer = (state = initialState, action) => {
         expirationTime: expirationTime,
         authNotification: {},
         adminUsername: action.adminUsername,
+        adminCanEdit: action.adminCanEdit,
       };
     case "LOGIN_CREDENTIAL_ERROR":
       return {
@@ -27,6 +29,7 @@ const authReducer = (state = initialState, action) => {
             "Votre nom d'utilisateur ou votre mot de passe est invalide.",
         },
         adminUsername: "",
+        adminCanEdit: "",
       };
     case "LOGIN_GENERIC_ERROR":
       return {
@@ -39,6 +42,7 @@ const authReducer = (state = initialState, action) => {
             "Une erreur inattendue s'est produite, veuillez réessayer ultérieurement.",
         },
         adminUsername: "",
+        adminCanEdit: "",
       };
     case "LOGOUT":
       return {
@@ -50,6 +54,7 @@ const authReducer = (state = initialState, action) => {
           message: "Vous avez été déconnecté.",
         },
         adminUsername: "",
+        adminCanEdit: "",
       };
     case "SESSION_EXPIRED":
       return {
@@ -61,6 +66,7 @@ const authReducer = (state = initialState, action) => {
           message: "Votre session à expiré, veuillez vous reconnecter.",
         },
         adminUsername: "",
+        adminCanEdit: "",
       };
     case "CLOSE_LOGIN_ALERT":
       return {
@@ -69,6 +75,7 @@ const authReducer = (state = initialState, action) => {
         expirationTime: null,
         authNotification: {},
         adminUsername: "",
+        adminCanEdit: "",
       };
     default:
       return state;

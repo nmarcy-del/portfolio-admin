@@ -5,7 +5,7 @@ import appConf from "config/config";
 import UploadCv from "components/dashboardItems/myCv/UploadCv";
 import PdfViewer from "components/dashboardItems/myCv/PdfViewer";
 import Modal from "components/commons/modals/Modal";
-import Alerts from "components/commons/dashboard/Alerts";
+import DashboardAlerts from "components/commons/dashboard/DashboardAlerts";
 
 const MyCv = () => {
   const [pdfUrl, setPdfUrl] = useState(null);
@@ -18,6 +18,7 @@ const MyCv = () => {
 
   const errorAlert = queueMessage && queueMessage.code === "error";
   const successAlert = !errorAlert && queueMessage.code === "success";
+  const warningAlert = !successAlert && !errorAlert && queueMessage.code === "warning";
 
   const checkIfFileExists = async (filename) => {
     try {
@@ -96,9 +97,10 @@ const MyCv = () => {
         </div>
       </div>
       <Modal modalOptions={modalOptions} />
-      <Alerts
+      <DashboardAlerts
         showSuccessAlert={successAlert}
         showErrorAlert={errorAlert}
+        showWarningAlert={warningAlert}
         message={queueMessage.message}
         closeAlert={closeAlert}
       />

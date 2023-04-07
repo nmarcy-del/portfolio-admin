@@ -5,7 +5,7 @@ import axiosInstance from "config/axiosInstance";
 import appConf from "config/config";
 import Modal from "components/commons/modals/Modal";
 import AdminCard from "components/commons/dashboard/AdminCard";
-import Alerts from "components/commons/dashboard/Alerts";
+import DashboardAlerts from "components/commons/dashboard/DashboardAlerts";
 
 const AdminTable = (props) => {
   // sortedItems stores the sorted elements that will be displayed in the table.
@@ -27,6 +27,7 @@ const AdminTable = (props) => {
   // errorAlert et successAlert sont des booléens pour déterminer si une alerte d'erreur ou de succès doit être affichée.
   const errorAlert = queueMessage && queueMessage.code === "error";
   const successAlert = !errorAlert && queueMessage.code === "success";
+  const warningAlert = !successAlert && !errorAlert && queueMessage.code === "warning";
 
   // sortItems sorts the data elements based on the specified sorting order and field.
   const sortItems = useCallback((data, sortOrder, field) => {
@@ -124,9 +125,10 @@ const AdminTable = (props) => {
         sortOrder={sortOrder}
         hideNewContact={hideNewContactButton}
       />
-      <Alerts
+      <DashboardAlerts
         showSuccessAlert={successAlert}
         showErrorAlert={errorAlert}
+        showWarningAlert={warningAlert}
         message={queueMessage.message}
         closeAlert={closeAlert}
       />
