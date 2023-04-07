@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const SidebarItem = ({ ...props }) => {
+const MenuItem = ({ ...props }) => {
   return (
     <li>
       <NavLink
@@ -26,4 +26,4 @@ const SidebarItem = ({ ...props }) => {
   );
 };
 
-export default SidebarItem;
+export default MenuItem;
