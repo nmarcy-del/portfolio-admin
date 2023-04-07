@@ -29,28 +29,34 @@ const DeleteModal = (props) => {
           });
         })
         .catch((error) => {
-
-          if (error.response) {
-            console.log(error.response);
+          if (error.response && error.response.status) {
+            console.log(error.response.status);
+            if (error.response.status === 401) {
+              sessionStorage.removeItem("jwt-token");
+              dispatch({ type: "SESSION_EXPIRED" });
+              navigate("/");
+            } else if (
+              error.response.status === 403 &&
+              error.response.data.message === "User doesn't have write access"
+            ) {
+              dispatch({
+                type: "HANDLE_AFTER_WARNING",
+                message: `Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments.`,
+              });
+            } else {
+              console.log(error.response);
+              dispatch({
+                type: "HANDLE_AFTER_ERROR",
+                message: `Erreur lors de la suppression de "${props.itemName}"`,
+              });
+            }
           } else {
             console.log(error);
+            dispatch({
+              type: "HANDLE_AFTER_ERROR",
+              message: `Erreur lors de suppression de "${props.itemName}"`,
+            });
           }
-
-          if (
-            error.response &&
-            error.response.status &&
-            error.response.status === 401
-          ) {
-            console.log(error.response.status);
-            sessionStorage.removeItem("jwt-token");
-            dispatch({ type: "SESSION_EXPIRED" });
-            navigate("/");
-          }
-
-          dispatch({
-            type: "HANDLE_AFTER_ERROR",
-            message: `Erreur lors de la suppression de ${props.itemName}`,
-          });
         });
     }
 
@@ -68,28 +74,34 @@ const DeleteModal = (props) => {
           });
         })
         .catch((error) => {
-
-          if (error.response) {
-            console.log(error.response);
+          if (error.response && error.response.status) {
+            console.log(error.response.status);
+            if (error.response.status === 401) {
+              sessionStorage.removeItem("jwt-token");
+              dispatch({ type: "SESSION_EXPIRED" });
+              navigate("/");
+            } else if (
+              error.response.status === 403 &&
+              error.response.data.message === "User doesn't have write access"
+            ) {
+              dispatch({
+                type: "HANDLE_AFTER_WARNING",
+                message: `Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments.`,
+              });
+            } else {
+              console.log(error.response);
+              dispatch({
+                type: "HANDLE_AFTER_ERROR",
+                message: `Erreur lors de la tentative de suppression du CV`,
+              });
+            }
           } else {
             console.log(error);
+            dispatch({
+              type: "HANDLE_AFTER_ERROR",
+              message: `Erreur lors de la tentative de suppression du CV`,
+            });
           }
-
-          if (
-            error.response &&
-            error.response.status &&
-            error.response.status === 401
-          ) {
-            console.log(error.response.status);
-            sessionStorage.removeItem("jwt-token");
-            dispatch({ type: "SESSION_EXPIRED" });
-            navigate("/");
-          }
-
-          dispatch({
-            type: "HANDLE_AFTER_ERROR",
-            message: `Erreur lors de la tentative de supression du CV`,
-          });
         });
     }
   };

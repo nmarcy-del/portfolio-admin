@@ -30,7 +30,7 @@ const CmsCardContent = ({ item }) => {
                   <p className="whitespace-no-wrap">
                     <span className="font-bold">Image (aperçu) :</span>
                     <img
-                      className="w-auto h-28 inline ml-5"
+                      className="w-auto h-28 inline ml-5 mt-5 md:mt-0 lg:mt-0"
                       src={item.img}
                       alt={item.title}
                     />

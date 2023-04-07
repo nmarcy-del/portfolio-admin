@@ -52,7 +52,6 @@ const Footer = () => {
   }, [navigate, dispatch]);
 
   return (
-    <>
       <footer className="relative bottom-0 w-full h-[8vh] bg-gray-900 px-2 pb-24 md:pb-32 lg:pb-32 mx-auto overflow-hidden sm:px-6 lg:px-8 z-40">
         <div className="flex justify-center mt-6 space-x-6">
           <a href={linkedin} className="text-gray-400 hover:text-gray-500">
@@ -68,7 +67,6 @@ const Footer = () => {
           © 2021 Del001, All rights reserved.
         </p>
       </footer>
-    </>
   );
 };
 

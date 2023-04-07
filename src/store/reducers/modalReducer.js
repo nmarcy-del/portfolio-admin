@@ -85,6 +85,19 @@ const modalReducer = (state = initialState, action) => {
         },
         refresh: false,
       };
+    case "HANDLE_AFTER_WARNING":
+      return {
+        ...state,
+        action: "",
+        itemId: "",
+        itemName: "",
+        isOpen: false,
+        notification: {
+          code: "warning",
+          message: action.message,
+        },
+        refresh: false,
+      };
     case "CLOSE_ALERT_MESSAGE":
       return {
         ...state,

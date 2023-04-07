@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import axiosInstance from "config/axiosInstance";
 import appConf from "config/config";
 import CtaButton from "components/commons/CtaButton";
@@ -9,6 +10,7 @@ const UploadCv = (props) => {
   const [fileSize, setFileSize] = useState(0);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {}, [setFile, setFileSize]);
 
@@ -35,7 +37,34 @@ const UploadCv = (props) => {
       setFileSize(null);
       setFile(null);
     } catch (error) {
-      console.error("Error uploading file:", error);
+      if (error.response && error.response.status) {
+        console.log(error.response.status);
+        if (error.response.status === 401) {
+          sessionStorage.removeItem("jwt-token");
+          dispatch({ type: "SESSION_EXPIRED" });
+          navigate("/");
+        } else if (
+          error.response.status === 403 &&
+          error.response.data.message === "User doesn't have write access"
+        ) {
+          dispatch({
+            type: "HANDLE_AFTER_WARNING",
+            message: `Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments.`,
+          });
+        } else {
+          console.log(error.response);
+          dispatch({
+            type: "HANDLE_AFTER_ERROR",
+            message: `Erreur lors de l'upload du fichier`,
+          });
+        }
+      } else {
+        console.log(error);
+        dispatch({
+          type: "HANDLE_AFTER_ERROR",
+          message: `Erreur lors de l'upload du fichier`,
+        });
+      }
     }
   };
 
