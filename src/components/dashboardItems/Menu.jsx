@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { CgMenu } from "react-icons/cg";
 import Header from "components/dashboardItems/menu/Header";
 import MainMenu from "components/dashboardItems/menu/MainMenu";
@@ -7,9 +7,11 @@ import MainMenu from "components/dashboardItems/menu/MainMenu";
 const Menu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const adminUsername = useSelector((state) => state.auth.adminUsername);
+  const dispatch = useDispatch();
 
   const handleMenuClick = () => {
     setIsMenuOpen(!isMenuOpen);
+    dispatch({type: "CLOSE_ALERT_MESSAGE"})
   };
 
   return (
