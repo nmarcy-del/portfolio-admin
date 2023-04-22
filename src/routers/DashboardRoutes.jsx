@@ -12,10 +12,10 @@ import WorksCardContent from "components/dashboardItems/adminTableContent/WorksC
 import CmsCardContent from "components/dashboardItems/adminTableContent/CmsCardContent";
 import ContactInformationsCardContent from "components/dashboardItems/adminTableContent/ContactInformationsCardContent";
 //Form content for new/edit modals
-import SkillsAndToolsFormContent from "components/dashboardItems/adminFormContent/SkillsAndToolsFormContent";
-import CmsFormContent from "components/dashboardItems/adminFormContent/CmsFormContent";
-import WorksFormContent from "components/dashboardItems/adminFormContent/WorksFormContent";
-import ContactInformationsFormContent from "components/dashboardItems/adminFormContent/ContactInformationsFormContent";
+import SkillsAndToolsFormContent from "components/dashboardItems/modalNewEditFormContent/SkillsAndToolsFormContent";
+import CmsFormContent from "components/dashboardItems/modalNewEditFormContent/CmsFormContent";
+import WorksFormContent from "components/dashboardItems/modalNewEditFormContent/WorksFormContent";
+import ContactInformationsFormContent from "components/dashboardItems/modalNewEditFormContent/ContactInformationsFormContent";
 
 
 const AppRoutes = () => {

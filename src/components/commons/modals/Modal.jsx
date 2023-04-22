@@ -30,7 +30,7 @@ const Modal = ({ ...props }) => {
         className="absolute bg-black opacity-80 inset-0 z-0"
         onClick={handleCloseAction}
       />
-      <div className="w-11/12 md:w-full max-h-[75%] lg:w-full max-w-lg px-3 py-2 md:p-5 lg:p-5 relative mx-auto my-auto rounded-md shadow-lg bg-gray-800 overflow-y-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+      <div className="w-11/12 md:w-full max-h-[75%] lg:w-full max-w-lg px-3 py-2 md:p-5 lg:p-5 relative mx-auto my-auto shadow-lg bg-gray-800 overflow-y-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
         {props.modalOptions.action === "EDIT" ||
         props.modalOptions.action === "NEW" ? (
           <NewOrEditModal

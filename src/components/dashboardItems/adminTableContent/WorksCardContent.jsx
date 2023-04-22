@@ -16,7 +16,7 @@ const WorksCardContent = ({ item }) => {
   return (
     <div
       key={item._id}
-      className="mt-8 bg-gray-700 shadow-xl pl-5 pr-5 pt-2 mr-0 mb-0 ml-0 lg:pr-0 pb-4 flow-root rounded-md"
+      className="mt-8 bg-gray-700 shadow-xl pl-5 pr-5 pt-2 mr-0 mb-0 ml-0 lg:pr-0 pb-4 flow-root"
     >
       <div className="pr-0 pb-10 pl-0">
         <div className="pt-5 pr-0 pb-0 pl-0 mt-5 mr-0 mb-0 ml-0">

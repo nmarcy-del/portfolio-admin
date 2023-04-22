@@ -64,7 +64,7 @@ const Footer = () => {
           </a>
         </div>
         <p className="mt-2 text-md text-center text-gray-400">
-          © 2021 Del001, All rights reserved.
+          © 2023 Del001, All rights reserved.
         </p>
       </footer>
   );

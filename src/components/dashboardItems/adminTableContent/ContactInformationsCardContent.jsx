@@ -6,7 +6,7 @@ const ContactInformationsCardContent = ({ item }) => {
   return (
     <div
       key={item.id}
-      className="mt-8 bg-gray-700 shadow-xl pl-12 pr-0 mr-0 mb-0 ml-0 pt-4 lg:pr-10 pb-4 lg:pl-10 flow-root rounded-md"
+      className="mt-8 bg-gray-700 shadow-xl pl-12 pr-0 mr-0 mb-0 ml-0 pt-4 lg:pr-10 pb-4 lg:pl-10 flow-root"
     >
       <div className="pr-0 pb-10 pl-0">
         <div className="pt-5 pr-0 pb-0 pl-0 mt-5 mr-0 mb-0 ml-0">
