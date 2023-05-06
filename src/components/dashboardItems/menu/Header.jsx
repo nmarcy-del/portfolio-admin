@@ -1,7 +1,10 @@
 import React from "react";
 import { RiDatabase2Line } from "react-icons/ri";
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex items-center justify-start">
       <span className="flex ml-2 md:mr-24">
@@ -11,7 +14,7 @@ const Header = () => {
           alt="Admin Logo"
         />
         <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-gray-200">
-          Mon admin
+          {t("My admin")}
         </span>
       </span>
     </div>

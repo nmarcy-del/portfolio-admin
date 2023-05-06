@@ -5,6 +5,7 @@ const config = {
   backendAuthEndpoint: process.env.BACKEND_AUTH_ENDPOINT || "/auth/",
   backendApiEndpoint: process.env.BACKEND_API_ENDPOINT || "/api/",
   author: process.env.SITE_AUTHOR || "del001",
+  appName: process.env.APP_NAME || "My app",
 };
 
 export default config;

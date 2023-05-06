@@ -1,8 +1,11 @@
 import React from "react";
 import DeleteButton from "components/commons/dashboard/DeleteButton";
 import EditButton from "components/commons/dashboard/EditButton";
+import { useTranslation } from 'react-i18next';
 
 const ContactInformationsCardContent = ({ item }) => {
+  const { t } = useTranslation();
+
   return (
     <div
       key={item.id}
@@ -19,7 +22,7 @@ const ContactInformationsCardContent = ({ item }) => {
               </div>
               <div className="mt-2">
                 <p className="whitespace-no-wrap">
-                  <span className="font-bold">Adresse :</span>
+                  <span className="font-bold">{`${t("Address")}:`}</span>
                 </p>
                 <p className="whitespace-no-wrap mt-2">{item.name}</p>
                 <p className="whitespace-no-wrap">{item.addressL1}</p>
@@ -30,12 +33,12 @@ const ContactInformationsCardContent = ({ item }) => {
               </div>
               <div className="mt-3">
                 <p className="whitespace-no-wrap">
-                  <span className="font-bold">Téléphone :</span> {item.phone}
+                  <span className="font-bold">{`${t("Phone")}:`}</span> {item.phone}
                 </p>
               </div>
               <div className="mt-1">
                 <p className="whitespace-no-wrap">
-                  <span className="font-bold">Email :</span> {item.email}
+                  <span className="font-bold">{`${t("Email")}:`}</span> {item.email}
                 </p>
               </div>
               <div className="mt-1">

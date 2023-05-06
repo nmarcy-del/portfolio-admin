@@ -1,7 +1,9 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 
 const NewOrEditModal = (props) => {
-  const title = props.itemId ? "Editer" : "Ajouter";
+  const { t } = useTranslation();
+  const title = props.itemId ? t("edit") : t("add");
 
   return (
     <div className="p-3 mt-2 text-center space-x-4 md:block">

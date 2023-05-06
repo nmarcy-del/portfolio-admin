@@ -1,7 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useTranslation } from 'react-i18next';
 
 const AddButton = (props) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const handleNewAction = () => {
     dispatch({ type: "HANDLE_NEW_ACTION" });
@@ -12,7 +14,7 @@ const AddButton = (props) => {
         className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-md text-white tracking-wide cursor-pointer"
         onClick={handleNewAction}
       >
-        <p>Ajouter</p>
+        <p>{t("add")}</p>
       </button>
     </div>
   );

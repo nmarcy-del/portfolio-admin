@@ -2,8 +2,11 @@ import React from "react";
 import { RiReactjsFill } from "react-icons/ri";
 import { SiTailwindcss } from "react-icons/si";
 import { GrNode } from "react-icons/gr";
+import { useTranslation } from 'react-i18next';
 
 const Home = (props) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="w-full min-h-fit p-10">
@@ -15,8 +18,7 @@ const Home = (props) => {
             </p>
             <div className="ml-1 text-md mt-5 mr-0 mb-0 ml-0 font-semi-bold text-gray-400">
               <p>
-                D'ici vous pouvez modifier l'ensemble des contenus présent sur
-                votre site.
+                {t("From here you can edit all the content on your website.")}
               </p>
             </div>
             <div className="mt-5 lg:mt-16 md:mt-16 mx-auto block md:flex md:flex-row lg:flex lg:flex-row flex-column md:space-x-5 lg:space-x-10 my-auto">

@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "components/commons/PrivateRoute";
+import { useTranslation } from "react-i18next";
 // Pages du dashboard
 import NotFoundPage from "pages/NotFound";
 import AdminTable from "components/dashboardItems/AdminTable";
@@ -19,6 +20,8 @@ import ContactInformationsFormContent from "components/dashboardItems/modalNewEd
 
 
 const AppRoutes = () => {
+  const { t } = useTranslation();
+
   // render admin table component
   const renderAdminTable = (
     apiUrl,
@@ -45,8 +48,8 @@ const AppRoutes = () => {
         element={
           <PrivateRoute>
             <Home
-              title="Accueil"
-              desc="Bienvenue sur votre interface d'administration"
+              title={t("Home")}
+              desc={t("Welcome to your administration interface")}
             />
           </PrivateRoute>
         }
@@ -56,8 +59,8 @@ const AppRoutes = () => {
         element={
           <PrivateRoute>
             <MyCv
-              title="Mon CV"
-              desc="Consulter / Uploader votre CV"
+              title={t("My resume")}
+              desc={t("View/Upload your CV")}
             />
           </PrivateRoute>
         }
@@ -66,8 +69,8 @@ const AppRoutes = () => {
         path="/skills"
         element={renderAdminTable(
           "skills",
-          "Compétences",
-          "Mes compétences",
+          t("Skills"),
+          t("My skills"),
           SkillsAndToolsCardContent,
           SkillsAndToolsFormContent
         )}
@@ -76,8 +79,8 @@ const AppRoutes = () => {
         path="/works"
         element={renderAdminTable(
           "works",
-          "Expériences",
-          "Mes expériences",
+          t("Experiences"),
+          t("My experiences"),
           WorksCardContent,
           WorksFormContent
         )}
@@ -87,7 +90,7 @@ const AppRoutes = () => {
         element={renderAdminTable(
           "cms-block",
           "CMS",
-          "Liste des blocs cms utilisé sur le frontend",
+          t("List of CMS blocks used on the frontend"),
           CmsCardContent,
           CmsFormContent
         )}
@@ -96,8 +99,8 @@ const AppRoutes = () => {
         path="/contactInformations"
         element={renderAdminTable(
           "contacts",
-          "Informations de contact",
-          "Mes informations de contact",
+          t("Contact information"),
+          t("My contact information"),
           ContactInformationsCardContent,
           ContactInformationsFormContent
         )}
@@ -106,8 +109,8 @@ const AppRoutes = () => {
         path="/tools"
         element={renderAdminTable(
           "tools",
-          "Outils",
-          "Les outils que j'utilise",
+          t("Tools"),
+          t("Tools I use"),
           SkillsAndToolsCardContent,
           SkillsAndToolsFormContent
         )}

@@ -6,10 +6,13 @@ import axiosInstance from "config/axiosInstance";
 import appConf from "config/config";
 import ModalCancelButton from "components/commons/modals/ModalCancelButton";
 import ModalCtaButton from "components/commons/modals/ModalCtaButton";
+import { useTranslation, Trans } from 'react-i18next';
 
 const DeleteModal = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  let itemName = props.itemName;
 
   const handleDelete = (event) => {
     if (props.itemId !== "CV") {
@@ -25,7 +28,7 @@ const DeleteModal = (props) => {
         .then((response) => {
           dispatch({
             type: "HANDLE_AFTER_SUCCESS",
-            message: `${props.itemName} à été supprimé`,
+            message: `${itemName} ${t("has been deleted")}`,
           });
         })
         .catch((error) => {
@@ -41,20 +44,20 @@ const DeleteModal = (props) => {
             ) {
               dispatch({
                 type: "HANDLE_AFTER_WARNING",
-                message: `Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments.`,
+                message: t(`This user does not have the necessary permissions to add, edit, or delete items.`),
               });
             } else {
               console.log(error.response);
               dispatch({
                 type: "HANDLE_AFTER_ERROR",
-                message: `Erreur lors de la suppression de "${props.itemName}"`,
+                message: `${t("Error while deleting")} ${itemName}"`,
               });
             }
           } else {
             console.log(error);
             dispatch({
               type: "HANDLE_AFTER_ERROR",
-              message: `Erreur lors de suppression de "${props.itemName}"`,
+              message: `${t("Error while deleting")} ${itemName}"`,
             });
           }
         });
@@ -70,7 +73,7 @@ const DeleteModal = (props) => {
         .then((response) => {
           dispatch({
             type: "HANDLE_AFTER_SUCCESS",
-            message: `Votre CV à été supprimé`,
+            message: t(`Your resume has been deleted.`),
           });
         })
         .catch((error) => {
@@ -86,20 +89,20 @@ const DeleteModal = (props) => {
             ) {
               dispatch({
                 type: "HANDLE_AFTER_WARNING",
-                message: `Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments.`,
+                message: t(`This user does not have the necessary permissions to add, edit, or delete items.`),
               });
             } else {
               console.log(error.response);
               dispatch({
                 type: "HANDLE_AFTER_ERROR",
-                message: `Erreur lors de la tentative de suppression du CV`,
+                message: t(`Error while attempting to delete the resume.`),
               });
             }
           } else {
             console.log(error);
             dispatch({
               type: "HANDLE_AFTER_ERROR",
-              message: `Erreur lors de la tentative de suppression du CV`,
+              message: t(`Error while attempting to delete the resume.`),
             });
           }
         });
@@ -114,16 +117,17 @@ const DeleteModal = (props) => {
     <div className="p-3 mt-2 text-center space-x-4 md:block">
       <div>
         <SlClose className="mx-auto text-red-600" size={48} />
-        <p className="mt-5 text-gray-300 text-lg">Êtes-vous sûr ?</p>
+        <p className="mt-5 text-gray-300 text-lg">{t("Êtes-vous sûr ?")}</p>
         {props.itemId && props.itemId !== "CV" && (
           <p className="mt-2 text-gray-500 text-sm">
-            Vous allez supprimer "{props.itemName}", cette action est
-            irréversible.
+            <Trans i18nKey='delete-item'>
+                {{itemName}}
+            </Trans>
           </p>
         )}
         {props.itemId === "CV" && (
           <p className="mt-2 text-gray-500 text-sm">
-            Vous allez supprimer votre CV, cette action est irréversible.
+            {t("You are about to delete your resume, this action is irreversible.")}
           </p>
         )}
       </div>

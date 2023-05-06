@@ -1,8 +1,11 @@
 import React from "react";
 import { RiLock2Line, RiUser3Line } from "react-icons/ri";
 import FormSubmitButton from "components/commons/FormSubmitButton";
+import { useTranslation } from 'react-i18next';
 
 const LoginForm = (props) => {
+  const { t } = useTranslation();
+
   return (
     <form className="flex flex-col" onSubmit={props.handleSubmit}>
       <div className="mb-6 pt-3 rounded relative">
@@ -10,7 +13,7 @@ const LoginForm = (props) => {
           className="block text-gray-700 mb-2 ml-3 text-sm sm:text-xs"
           htmlFor="email"
         >
-          <span className="text-red-800 font-bold">*</span> Nom d'utilisateur
+          <span className="text-red-800 font-bold">*</span> {t("Username")}
         </label>
         <div className="absolute inset-y-0 left-0 flex items-center pl-2 pt-9 text-gray-400">
           <RiUser3Line size={20} />
@@ -20,7 +23,7 @@ const LoginForm = (props) => {
           type="text"
           id="username"
           name="username"
-          placeholder="Nom d'utilisateur"
+          placeholder={t("Username")}
           value={props.form.username}
           onChange={props.handleFormChange}
         />
@@ -30,7 +33,7 @@ const LoginForm = (props) => {
           className="block text-gray-700 mb-2 ml-3 text-sm"
           htmlFor="password"
         >
-          <span className="text-red-800 font-bold">*</span> Mot de passe
+          <span className="text-red-800 font-bold">*</span> {t("Password")}
         </label>
         <div className="absolute inset-y-0 left-0 flex items-center pl-2 pt-9 text-gray-400">
           <RiLock2Line size={20} />
@@ -40,15 +43,15 @@ const LoginForm = (props) => {
           type="password"
           id="password"
           name="password"
-          placeholder="Mot de passe"
+          placeholder={t("Password")}
           value={props.form.password}
           onChange={props.handleFormChange}
         />
       </div>
       <p className="block text-gray-700 ml-3 text-sm">
-        Pour un accès démo essayez demo / demo
+        {t("For demo access, please try demo/demo.")}
       </p>
-      <FormSubmitButton title="Connexion" />
+      <FormSubmitButton title={t("Login")} />
     </form>
   );
 };

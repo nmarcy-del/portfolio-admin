@@ -1,10 +1,13 @@
 import React from "react";
 import ErrorAlert from "components/commons/ErrorAlert";
 import SuccessAlert from "components/commons/SuccessAlert";
+import { useTranslation } from 'react-i18next';
 
 const Alerts = (props) => {
+  const { t } = useTranslation();
+
   let showAlert = !props.closeAlert;
-  const WELCOME_MESSAGE = "Bienvenue, veuillez vous connecter";
+  const WELCOME_MESSAGE = t("Welcome, please log in.");
 
   if (props.queueMessage) {
     showAlert = !showAlert;
@@ -14,13 +17,13 @@ const Alerts = (props) => {
     <>
       {showAlert && props.showErrorAlert && (
         <ErrorAlert
-          message={props.queueMessage.message}
+          message={t(props.queueMessage.message)}
           onClick={props.closeAlert}
         />
       )}
       {showAlert && props.showSuccessAlert && (
         <SuccessAlert
-          message={props.queueMessage.message}
+          message={t(props.queueMessage.message)}
           onClick={props.closeAlert}
         />
       )}
