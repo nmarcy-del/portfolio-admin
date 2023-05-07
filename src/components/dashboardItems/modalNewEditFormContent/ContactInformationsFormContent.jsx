@@ -7,8 +7,10 @@ import ModalCancelButton from "components/commons/modals/ModalCancelButton";
 import ModalCtaButton from "components/commons/modals/ModalCtaButton";
 import FormTwoFieldOnLine from "components/commons/modals/FormTwoFieldOnLine";
 import FormOneLineField from "components/commons/modals/FormOneLineField";
+import { useTranslation } from 'react-i18next';
 
 const ContactInformationsFormContent = (props) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -79,10 +81,10 @@ const ContactInformationsFormContent = (props) => {
       !form.name
     ) {
       if (form.name === "" || !form.name) {
-        setNamesError({ message2: "Veuillez saisir votre nom complet" });
+        setNamesError({ message2: t("Please enter your full name") });
       }
       if (form.addressName === "" || !form.addressName) {
-        setNamesError({ message1: "Veuillez saisir un nom d'adresse" });
+        setNamesError({ message1: t("Please enter an address name") });
       }
       return;
     } else {
@@ -90,7 +92,7 @@ const ContactInformationsFormContent = (props) => {
     }
 
     if (form.addressL1 === "" || !form.addressL1) {
-      setAddressError({ message: "L'adresse ne peut être vide" });
+      setAddressError({ message: t("The address cannot be empty") });
       return;
     } else {
       setAddressError({ message: null });
@@ -103,10 +105,10 @@ const ContactInformationsFormContent = (props) => {
       !form.city
     ) {
       if (form.city === "" || !form.city) {
-        setCityNpaError({ message2: "Veuillez saisir une ville" });
+        setCityNpaError({ message2: t("Please enter a city") });
       }
       if (form.postalCode === "" || !form.postalCode) {
-        setCityNpaError({ message1: "Veuillez saisir un code postal" });
+        setCityNpaError({ message1: t("Please enter a zip code") });
       }
       return;
     } else {
@@ -114,7 +116,7 @@ const ContactInformationsFormContent = (props) => {
     }
 
     if (form.email === "" || !form.email) {
-      setEmailError({ message: "L'email ne peut être vide" });
+      setEmailError({ message: t("The email cannot be empty") });
       return;
     } else {
       setEmailError({ message: null });
@@ -133,7 +135,7 @@ const ContactInformationsFormContent = (props) => {
         .then((response) => {
           dispatch({
             type: "HANDLE_AFTER_SUCCESS",
-            message: `${props.itemName} à correctement été édité`,
+            message: `${props.itemName} ${t("has been successfully edited.")}`,
           });
         })
         .catch((error) => {
@@ -149,20 +151,20 @@ const ContactInformationsFormContent = (props) => {
             ) {
               dispatch({
                 type: "HANDLE_AFTER_WARNING",
-                message: `Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments.`,
+                message: t("This user does not have the necessary permissions to add, edit, or delete items."),
               });
             } else {
               console.log(error.response);
               dispatch({
                 type: "HANDLE_AFTER_ERROR",
-                message: `Erreur lors de l'édition de "${props.itemName}"`,
+                message: `${t("Error while editing")} "${props.itemName}"`,
               });
             }
           } else {
             console.log(error);
             dispatch({
               type: "HANDLE_AFTER_ERROR",
-              message: `Erreur lors de l'édition de "${props.itemName}"`,
+              message: `${t("Error while editing")} "${props.itemName}"`,
             });
           }
         });
@@ -179,7 +181,7 @@ const ContactInformationsFormContent = (props) => {
         .then((response) => {
           dispatch({
             type: "HANDLE_AFTER_SUCCESS",
-            message: `${form.addressName} à bien été ajouté`,
+            message: `${form.addressName} ${t("has been successfully added.")}`,
           });
         })
         .catch((error) => {
@@ -195,20 +197,20 @@ const ContactInformationsFormContent = (props) => {
             ) {
               dispatch({
                 type: "HANDLE_AFTER_WARNING",
-                message: `Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments.`,
+                message: t("This user does not have the necessary permissions to add, edit, or delete items."),
               });
             } else {
               console.log(error.response);
               dispatch({
                 type: "HANDLE_AFTER_ERROR",
-                message: `Erreur lors de l'ajout d'un nouvel élément`,
+                message: t("Error while adding a new item"),
               });
             }
           } else {
             console.log(error);
             dispatch({
               type: "HANDLE_AFTER_ERROR",
-              message: `Erreur lors de l'ajout d'un nouvel élément`,
+              message: t("Error while adding a new item"),
             });
           }
         });
@@ -225,7 +227,7 @@ const ContactInformationsFormContent = (props) => {
     >
       <div className="mt-8 md:mt-5 lg:mt-5">
         <FormTwoFieldOnLine
-          label1="Nom de l'adresse"
+          label1={t("Address name")}
           type1="text"
           name1="addressName"
           value1={form.addressName}
@@ -240,7 +242,7 @@ const ContactInformationsFormContent = (props) => {
           error={namesError}
         />
         <FormOneLineField
-          label="Adresse"
+          label={t("Address")}
           type="text"
           name="addressL1"
           value={form.addressL1}
@@ -249,14 +251,14 @@ const ContactInformationsFormContent = (props) => {
           error={addressError}
         />
         <FormOneLineField
-          label="Complément d'adresse"
+          label={t("Address line 2")}
           type="text"
           name="addressL2"
           value={form.addressL2}
           onChange={handleFormChange}
         />
         <FormTwoFieldOnLine
-          label1="Code postal"
+          label1={t("Zip code")}
           type1="text"
           name1="postalCode"
           value1={form.postalCode}
@@ -271,14 +273,14 @@ const ContactInformationsFormContent = (props) => {
           error={cityNpaError}
         />
         <FormOneLineField
-          label="Téléphone"
+          label={t("Phone")}
           type="text"
           name="phone"
           value={form.phone}
           onChange={handleFormChange}
         />
         <FormOneLineField
-          label="E-mail"
+          label={t("E-mail")}
           type="text"
           name="email"
           value={form.email}

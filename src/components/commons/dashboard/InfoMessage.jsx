@@ -1,8 +1,10 @@
 import React from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { BiX } from "react-icons/bi";
+import { useTranslation } from 'react-i18next';
 
 const InfoMessage = ({ adminUserCanEdit, showInfo, handleCloseInfo }) => {
+  const { t } = useTranslation();
   if (!adminUserCanEdit && showInfo) {
     return (
       <div className="fixed w-full bottom-0 mb-2 flex p-2 justify-between items-center text-yellow-100 bg-orange-500 z-50">
@@ -10,7 +12,7 @@ const InfoMessage = ({ adminUserCanEdit, showInfo, handleCloseInfo }) => {
           <RiErrorWarningLine size={24} />
           <span className="sr-only">Info</span>
           <span className="ml-3 text-sm font-medium">
-            Cet utilisateur est un utilisateur de démonstration et n'a aucun droit en écriture.
+            {t("This user is a demo user and has no write permissions.")}
           </span>
         </div>
         <BiX

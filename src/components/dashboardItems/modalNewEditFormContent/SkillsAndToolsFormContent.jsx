@@ -6,10 +6,11 @@ import appConf from "config/config";
 import ModalCancelButton from "components/commons/modals/ModalCancelButton";
 import ModalCtaButton from "components/commons/modals/ModalCtaButton";
 import FormTwoFieldOnLine from "components/commons/modals/FormTwoFieldOnLine";
-import FormTextArea from "components/commons/modals/FormTextArea";
 import FormOneLineField from "components/commons/modals/FormOneLineField";
+import { useTranslation } from 'react-i18next';
 
 const SkillsAndToolsFormContent = (props) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -60,11 +61,11 @@ const SkillsAndToolsFormContent = (props) => {
   const handleSubmit = (form) => {
     if (form.name === "" || !form.name || isNaN(parseInt(form.order))) {
       if (isNaN(parseInt(form.order))) {
-        setError({ message2: "La valeur de ordre doit être un nombre entier" });
+        setError({ message2: t("The value of order must be an integer") });
       }
 
       if (form.name === "" || !form.name) {
-        setError({ message1: "Veuillez saisir un nom" });
+        setError({ message1: t("Please enter a name") });
       }
 
       return;
@@ -91,7 +92,7 @@ const SkillsAndToolsFormContent = (props) => {
         .then((response) => {
           dispatch({
             type: "HANDLE_AFTER_SUCCESS",
-            message: `${props.itemName} à correctement été édité`,
+            message: `${props.itemName} ${t("has been successfully edited.")}`,
           });
         })
         .catch((error) => {
@@ -107,20 +108,20 @@ const SkillsAndToolsFormContent = (props) => {
             ) {
               dispatch({
                 type: "HANDLE_AFTER_WARNING",
-                message: `Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments.`,
+                message: t("This user does not have the necessary permissions to add, edit, or delete items."),
               });
             } else {
               console.log(error.response);
               dispatch({
                 type: "HANDLE_AFTER_ERROR",
-                message: `Erreur lors de l'édition de "${props.itemName}"`,
+                message: `${t("Error while editing")} "${props.itemName}"`,
               });
             }
           } else {
             console.log(error);
             dispatch({
               type: "HANDLE_AFTER_ERROR",
-              message: `Erreur lors de l'édition de "${props.itemName}"`,
+              message: `${t("Error while editing")} "${props.itemName}"`,
             });
           }
         });
@@ -137,7 +138,7 @@ const SkillsAndToolsFormContent = (props) => {
         .then((response) => {
           dispatch({
             type: "HANDLE_AFTER_SUCCESS",
-            message: `${form.name} à bien été ajouté`,
+            message: `${form.name} ${t("has been successfully added.")}`,
           });
         })
         .catch((error) => {
@@ -153,20 +154,20 @@ const SkillsAndToolsFormContent = (props) => {
             ) {
               dispatch({
                 type: "HANDLE_AFTER_WARNING",
-                message: `Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments.`,
+                message: t("This user does not have the necessary permissions to add, edit, or delete items."),
               });
             } else {
               console.log(error.response);
               dispatch({
                 type: "HANDLE_AFTER_ERROR",
-                message: `Erreur lors de l'ajout d'un nouvel élément`,
+                message: t("Error while adding a new item"),
               });
             }
           } else {
             console.log(error);
             dispatch({
               type: "HANDLE_AFTER_ERROR",
-              message: `Erreur lors de l'ajout d'un nouvel élément`,
+              message: t("Error while adding a new item"),
             });
           }
         });
@@ -183,7 +184,7 @@ const SkillsAndToolsFormContent = (props) => {
     >
       <div className="mt-8 md:mt-5 lg:mt-5">
         <FormTwoFieldOnLine
-          label1="Nom"
+          label1={t("Name")}
           type1="text"
           name1="name"
           value1={form.name}
@@ -198,7 +199,7 @@ const SkillsAndToolsFormContent = (props) => {
           error={error}
         />
         <FormOneLineField
-          label="Url d'image"
+          label={t("Image url")}
           type="text"
           name="img"
           value={form.img}

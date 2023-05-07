@@ -1,8 +1,11 @@
 import React from "react";
 import DeleteButton from "components/commons/dashboard/DeleteButton";
 import EditButton from "components/commons/dashboard/EditButton";
+import { useTranslation } from "react-i18next";
 
 const CmsCardContent = ({ item }) => {
+  const { t } = useTranslation();
+  
   return (
     <div
       key={item.id}
@@ -17,18 +20,18 @@ const CmsCardContent = ({ item }) => {
               </div>
               <div className="mt-2">
                 <p className="whitespace-no-wrap mt-5">
-                  <span className="font-bold">Contenu :</span> {item.content}
+                  <span className="font-bold">{`${t("Content")}:`}</span> {item.content}
                 </p>
               </div>
               <div className="mt-2">
                 <p className="whitespace-no-wrap">
-                  <span className="font-bold">Section :</span> {item.section}
+                  <span className="font-bold">{`${t("Section")}:`}</span> {item.section}
                 </p>
               </div>
               {item.img && item.img !== "" && (
                 <div className="mt-5">
                   <p className="whitespace-no-wrap">
-                    <span className="font-bold">Image (aperçu) :</span>
+                    <span className="font-bold">{`${t("Image (preview)")}:`}</span>
                     <img
                       className="w-auto h-28 inline ml-5 mt-5 md:mt-0 lg:mt-0"
                       src={item.img}

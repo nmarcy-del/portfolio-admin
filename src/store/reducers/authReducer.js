@@ -25,8 +25,7 @@ const authReducer = (state = initialState, action) => {
         expirationTime: null,
         authNotification: {
           code: "error",
-          message:
-            "Votre nom d'utilisateur ou votre mot de passe est invalide.",
+          message: "Your username or password is invalid.",
         },
         adminUsername: "",
         adminCanEdit: "",
@@ -38,8 +37,7 @@ const authReducer = (state = initialState, action) => {
         expirationTime: null,
         authNotification: {
           code: "error",
-          message:
-            "Une erreur inattendue s'est produite, veuillez réessayer ultérieurement.",
+          message: "An unexpected error occurred, please try again later.",
         },
         adminUsername: "",
         adminCanEdit: "",
@@ -51,7 +49,7 @@ const authReducer = (state = initialState, action) => {
         expirationTime: null,
         authNotification: {
           code: "success",
-          message: "Vous avez été déconnecté.",
+          message: "You have been logged out.",
         },
         adminUsername: "",
         adminCanEdit: "",
@@ -63,7 +61,7 @@ const authReducer = (state = initialState, action) => {
         expirationTime: null,
         authNotification: {
           code: "error",
-          message: "Votre session à expiré, veuillez vous reconnecter.",
+          message: "Your session has expired, please log in again.",
         },
         adminUsername: "",
         adminCanEdit: "",

@@ -4,8 +4,10 @@ import { useNavigate } from "react-router";
 import axiosInstance from "config/axiosInstance";
 import appConf from "config/config";
 import { CgLogOff } from "react-icons/cg";
+import { useTranslation } from 'react-i18next';
 
 function LogoutButton() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const baseUrl = appConf.backendBaseUrl;
@@ -38,7 +40,7 @@ function LogoutButton() {
         <span className="inline-flex justify-center items-center ml-4 mt-1">
           <CgLogOff size={24} />
         </span>
-        <span className="ml-5 text-md tracking-wide truncate">Logout</span>
+        <span className="ml-5 text-md tracking-wide truncate">{t("Logout")}</span>
       </button>
     </li>
   );

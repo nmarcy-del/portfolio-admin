@@ -10,8 +10,12 @@ import {
   CgFileDocument,
 } from "react-icons/cg";
 import LogoutButton from "components/dashboardItems/menu/LogoutButton";
+import LanguageSwitcher from "components/commons/LanguageSwitcher";
+import { useTranslation } from 'react-i18next';
 
 const MainMenu = (props) => {
+  const { t } = useTranslation();
+
   return (
     <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-700 md:dark:bg-gray-800">
       <p className="relative flex flex-row items-center h-11 text-gray-300 pr-6 pb-5">
@@ -21,7 +25,7 @@ const MainMenu = (props) => {
         <MenuItem
           icon={<CgHomeAlt size={24} />}
           to="home"
-          label="Accueil"
+          label={t("Home")}
           onClick={props.handleMenuClick}
         />
         <MenuItem
@@ -33,32 +37,35 @@ const MainMenu = (props) => {
         <MenuItem
           icon={<CgBriefcase size={24} />}
           to="works"
-          label="Expériences"
+          label={t("Experiences")}
           onClick={props.handleMenuClick}
         />
         <MenuItem
           icon={<CgTerminal size={24} />}
           to="skills"
-          label="Compétences"
+          label={t("Skills")}
           onClick={props.handleMenuClick}
         />
         <MenuItem
           icon={<CgBrowser size={24} />}
           to="tools"
-          label="Outils"
+          label={t("Tools")}
           onClick={props.handleMenuClick}
         />
         <MenuItem
           icon={<CgTrack size={24} />}
           to="contactInformations"
-          label="Coordonnées"
+          label={t("Contact information")}
           onClick={props.handleMenuClick}
         />
         <MenuItem
           icon={<CgFileDocument size={24} />}
           to="cv"
-          label="Mon CV"
+          label={t("My resume")}
           onClick={props.handleMenuClick}
+        />
+        <LanguageSwitcher
+          isMenu={true}
         />
         <LogoutButton />
       </ul>
