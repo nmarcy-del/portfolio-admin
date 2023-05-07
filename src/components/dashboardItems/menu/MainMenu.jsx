@@ -10,6 +10,7 @@ import {
   CgFileDocument,
 } from "react-icons/cg";
 import LogoutButton from "components/dashboardItems/menu/LogoutButton";
+import LanguageSwitcher from "components/commons/LanguageSwitcher";
 import { useTranslation } from 'react-i18next';
 
 const MainMenu = (props) => {
@@ -62,6 +63,9 @@ const MainMenu = (props) => {
           to="cv"
           label={t("My resume")}
           onClick={props.handleMenuClick}
+        />
+        <LanguageSwitcher
+          isMenu={true}
         />
         <LogoutButton />
       </ul>

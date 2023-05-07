@@ -1,9 +1,15 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
+let initLanguage = "fr";
+
+if (localStorage.getItem("user-defined-language")) {
+  initLanguage = localStorage.getItem("user-defined-language");
+}
+
 i18n.use(initReactI18next).init({
-  fallbackLng: "fr",
-  lng: "fr",
+  fallbackLng: initLanguage,
+  lng: initLanguage,
   resources: {
     fr: {
       translations: require("./locales/fr/fr.json"),

@@ -9,10 +9,12 @@ import appConf from "config/config";
 
 function App() {
   const { t } = useTranslation();
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     document.title = t(appConf.appName);
-  }, [t]);
+    document.documentElement.lang = i18n.language;
+  }, [t, i18n]);
 
   return (
     <>
