@@ -4,8 +4,11 @@ import { useNavigate } from "react-router";
 import axiosInstance from "config/axiosInstance";
 import appConf from "config/config";
 import CtaButton from "components/commons/CtaButton";
+import { useTranslation } from 'react-i18next';
 
 const UploadCv = (props) => {
+  const { t } = useTranslation();
+
   const [file, setFile] = useState(null);
   const [fileSize, setFileSize] = useState(0);
 
@@ -49,20 +52,20 @@ const UploadCv = (props) => {
         ) {
           dispatch({
             type: "HANDLE_AFTER_WARNING",
-            message: `Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments.`,
+            message: t("Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments."),
           });
         } else {
           console.log(error.response);
           dispatch({
             type: "HANDLE_AFTER_ERROR",
-            message: `Erreur lors de l'upload du fichier`,
+            message: t("Error uploading file"),
           });
         }
       } else {
         console.log(error);
         dispatch({
           type: "HANDLE_AFTER_ERROR",
-          message: `Erreur lors de l'upload du fichier`,
+          message: t("Error uploading file"),
         });
       }
     }
@@ -121,12 +124,12 @@ const UploadCv = (props) => {
       {props.fileExists && (
         <div className="mt-3 flex space-between space-x-2 md:space-x-1 lg:space-x-2 justify-start items-center lg:justify-end">
           <CtaButton
-            title="Télécharger"
+            title={t("Download")}
             onClick={handleDownloadCv}
             actionType="DOWNLOAD"
           />
           <CtaButton
-            title="Supprimer"
+            title={t("delete")}
             onClick={handleDeleteAction}
             actionType="DELETE"
           />

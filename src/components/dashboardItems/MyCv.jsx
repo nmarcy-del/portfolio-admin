@@ -6,8 +6,11 @@ import UploadCv from "components/dashboardItems/myCv/UploadCv";
 import PdfViewer from "components/dashboardItems/myCv/PdfViewer";
 import Modal from "components/commons/modals/Modal";
 import DashboardAlerts from "components/commons/dashboard/DashboardAlerts";
+import { useTranslation } from 'react-i18next';
 
 const MyCv = () => {
+  const { t } = useTranslation();
+
   const [pdfUrl, setPdfUrl] = useState(null);
   const [refresh, setRefresh] = useState(false);
   const [fileExists, setFileExists] = useState(false);
@@ -84,7 +87,7 @@ const MyCv = () => {
       <div className="w-full mt-0 mr-auto mb-0 ml-auto max-w-7xl md:pl-2 md:pr-4 lg:px-0">
         <div className="w-full mt-0 mr-auto mb-0 ml-auto md:max-w-lg lg:max-w-4xl">
           <h1 className="text-xl font-bold text-gray-300">
-            Télécharger et consulter mon CV
+            {t("Download and view my resume.")}
           </h1>
           <UploadCv
             onUpload={handleUploadSuccess}

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import PageNavigation from "components/dashboardItems/myCv/PageNavigation";
+import { useTranslation } from 'react-i18next';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const PdfViewer = (props) => {
+  const { t } = useTranslation();
+
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [height, setHeight] = useState(800);
@@ -115,8 +118,8 @@ const PdfViewer = (props) => {
                 key={props.pdfUrl}
                 file={props.pdfUrl}
                 onLoadSuccess={onDocumentLoadSuccess}
-                error="Aucun fichier.."
-                loading="Chargement..."
+                error={t("No file..")}
+                loading={t("Loading...")}
                 height={height}
                 width={width}
               >

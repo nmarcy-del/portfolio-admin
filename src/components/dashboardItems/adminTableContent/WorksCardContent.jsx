@@ -1,8 +1,11 @@
 import React from "react";
 import DeleteButton from "components/commons/dashboard/DeleteButton";
 import EditButton from "components/commons/dashboard/EditButton";
+import { useTranslation } from 'react-i18next';
 
 const WorksCardContent = ({ item }) => {
+  const { t } = useTranslation();
+
   const formatDate = (date) => {
     if (!date) {
       return "Aujourd'hui";
@@ -38,25 +41,25 @@ const WorksCardContent = ({ item }) => {
               <div className="flex items-center justify-start space-x-4 mt-2">
                 <div>
                   <p className="whitespace-no-wrap">
-                    <span className="font-bold">De : </span>{" "}
+                    <span className="font-bold">{`${t("From")}:`} </span>{" "}
                     {formatDate(item.startDate)}
                   </p>
                 </div>
                 <div>
                   <p className="whitespace-no-wrap">
-                    <span className="font-bold">à : </span>{" "}
+                    <span className="font-bold">{`${t("to")}:`} </span>{" "}
                     {formatDate(item.endDate)}
                   </p>
                 </div>
               </div>
               <div className="mt-2">
                 <p className="whitespace-no-wrap mt-5">
-                  <span className="font-bold">Description :</span> {item.desc}
+                  <span className="font-bold">{`${t("Description")}:`}</span> {item.desc}
                 </p>
               </div>
               <div className="mt-2">
                 <p className="whitespace-no-wrap">
-                  <span className="font-bold">Technologies utilisée :</span>{" "}
+                  <span className="font-bold">{`${t("Technologies used")}:`}</span>{" "}
                   {item.technologies}
                 </p>
               </div>

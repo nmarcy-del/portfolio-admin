@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 
 const FormTwoFieldOnLine = (props) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="flex flex-wrap -mx-3 mb-6">
       <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -28,7 +31,7 @@ const FormTwoFieldOnLine = (props) => {
               for="date"
               class="mb-3 block text-base font-medium text-[#07074D]"
             >
-              Date
+              {t("date")}
             </label>
             <input
               type="date"

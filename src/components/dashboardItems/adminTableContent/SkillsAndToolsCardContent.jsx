@@ -1,8 +1,11 @@
 import React from "react";
 import DeleteButton from "components/commons/dashboard/DeleteButton";
 import EditButton from "components/commons/dashboard/EditButton";
+import { useTranslation } from 'react-i18next';
 
 const SkillsAndToolsCardContent = ({ item, apiUrl }) => {
+  const { t } = useTranslation();
+
   return (
     <div
       key={item.id}
@@ -15,23 +18,23 @@ const SkillsAndToolsCardContent = ({ item, apiUrl }) => {
               <div className="flex items-center justify-start mb-2 space-x-10">
                 <p className="whitespace-no-wrap text-md md:mx-0 lg:mx-0">
                   {apiUrl === "skills" && (
-                    <span className="font-bold">Compétence : </span>
+                    <span className="font-bold">{`${t("Skill")}:`} </span>
                   )}
                   {apiUrl === "tools" && (
-                    <span className="font-bold">Outil : </span>
+                    <span className="font-bold">{`${t("Tool")}:`} </span>
                   )}
                   {item.name}
                 </p>
               </div>
               <div className="mt-2">
                 <p className="whitespace-no-wrap">
-                  <span className="font-bold">Ordre :</span> {item.order}
+                  <span className="font-bold">{`${t("Order")}:`}</span> {item.order}
                 </p>
               </div>
               {item.img && item.img !== "" && (
                 <div className="mt-2">
                   <p className="whitespace-no-wrap">
-                    <span className="font-bold">Image (aperçu) :</span>
+                    <span className="font-bold">{`${t("Image (preview)")}:`}</span>
                     <img
                       className="w-auto h-24 inline ml-5 mt-2 md:mt-0 lg:mt-0"
                       src={item.img}

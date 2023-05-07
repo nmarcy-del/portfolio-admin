@@ -6,8 +6,13 @@ import axiosInstance from "config/axiosInstance";
 import appConf from "config/config";
 import LoginForm from "components/loginPageItems/LoginForm";
 import Alerts from "components/loginPageItems/Alerts";
+import LanguageSwitcher from "components/commons/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const LoginPage = () => {
+  // Get the translation engine
+  const { t } = useTranslation();
+
   // State for form input values
   const [form, setForm] = useState({ username: "", password: "" });
 
@@ -15,7 +20,7 @@ const LoginPage = () => {
   const [isAlertClose, setIsAlertClose] = useState(true);
 
   // Get backend base URL and auth endpoint from config
-  const { backendBaseUrl, backendAuthEndpoint } = appConf;
+  const { backendBaseUrl, backendAuthEndpoint, appName } = appConf;
 
   // Redux hooks for dispatching actions and selecting data from state
   const dispatch = useDispatch();
@@ -96,12 +101,12 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-800 flex flex-col justify-center items-center">
-      <h1 className="text-4xl text-white mt-2">My app</h1>
+      <h1 className="text-4xl text-white mt-2">{t(appName)}</h1>
       <main className="bg-white md:max-w-sm sm:max-w-sm mx-auto p-8 my-10 shadow-1cs shadow-black w-11/12">
         <section className="px-3">
           <div className="flex items-center justify-center pr-20 mb-5">
             <RiDatabase2Line className="text-6xl text-green-600 mr-5" />
-            <h2 className="text-2xl text-gray-700">Admin</h2>
+            <h2 className="text-2xl text-gray-700">{t("Admin")}</h2>
           </div>
           <Alerts
             isAlertClose={isAlertClose}
@@ -118,7 +123,10 @@ const LoginPage = () => {
             handleSubmit={handleSubmit}
           />
         </section>
+        <div>
+        </div>
       </main>
+        <LanguageSwitcher/>
     </div>
   );
 };

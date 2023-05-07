@@ -8,8 +8,10 @@ import ModalCtaButton from "components/commons/modals/ModalCtaButton";
 import FormTwoFieldOnLine from "components/commons/modals/FormTwoFieldOnLine";
 import FormTextArea from "components/commons/modals/FormTextArea";
 import FormOneLineField from "components/commons/modals/FormOneLineField";
+import { useTranslation } from 'react-i18next';
 
 const CmsFormContent = (props) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,6 +26,7 @@ const CmsFormContent = (props) => {
     message2: null,
   });
   const [contentError, setContentError] = useState({ message: null });
+  const [imgError, setImgError] = useState({message: null});
   const handleFormChange = (event) => {
     const { name, value } = event.target;
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
@@ -69,10 +72,10 @@ const CmsFormContent = (props) => {
       !form.section
     ) {
       if (form.title === "" || !form.title) {
-        setTitleSectionError({ message1: "Veuillez saisir un titre" });
+        setTitleSectionError({ message1: t("Please enter a title") });
       }
       if (form.section === "" || !form.section) {
-        setTitleSectionError({ message2: "Veuillez saisir une section" });
+        setTitleSectionError({ message2: t("Please enter a section") });
       }
       return;
     } else {
@@ -80,10 +83,17 @@ const CmsFormContent = (props) => {
     }
 
     if (form.content === "" || !form.content) {
-      setContentError({ message: "Le contenu ne peut être vide" });
+      setContentError({ message: t("The content cannot be empty") });
       return;
     } else {
       setContentError({ message: null });
+    }
+
+    if (form.img === "" || !form.img) {
+      setImgError({ message: t("The img url cannot be empty") });
+      return;
+    } else {
+      setImgError({ message: null });
     }
 
     if (props.itemId) {
@@ -99,7 +109,7 @@ const CmsFormContent = (props) => {
         .then((response) => {
           dispatch({
             type: "HANDLE_AFTER_SUCCESS",
-            message: `${props.itemName} à correctement été édité`,
+            message: `${props.itemName} ${t("has been successfully edited.")}`,
           });
         })
         .catch((error) => {
@@ -115,20 +125,20 @@ const CmsFormContent = (props) => {
             ) {
               dispatch({
                 type: "HANDLE_AFTER_WARNING",
-                message: `Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments.`,
+                message: t(`This user does not have the necessary permissions to add, edit, or delete items.`),
               });
             } else {
               console.log(error.response);
               dispatch({
                 type: "HANDLE_AFTER_ERROR",
-                message: `Erreur lors de l'édition de "${props.itemName}"`,
+                message: `${t("Error while editing")} "${props.itemName}"`,
               });
             }
           } else {
             console.log(error);
             dispatch({
               type: "HANDLE_AFTER_ERROR",
-              message: `Erreur lors de l'édition de "${props.itemName}"`,
+              message: `${t("Error while editing")} "${props.itemName}"`,
             });
           }
         });
@@ -145,7 +155,7 @@ const CmsFormContent = (props) => {
         .then((response) => {
           dispatch({
             type: "HANDLE_AFTER_SUCCESS",
-            message: `${form.title} à bien été ajouté`,
+            message: `${form.title} ${t("has been successfully added.")}`,
           });
         })
         .catch((error) => {
@@ -161,20 +171,20 @@ const CmsFormContent = (props) => {
             ) {
               dispatch({
                 type: "HANDLE_AFTER_WARNING",
-                message: `Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments.`,
+                message: t(`This user does not have the necessary permissions to add, edit, or delete items.`),
               });
             } else {
               console.log(error.response);
               dispatch({
                 type: "HANDLE_AFTER_ERROR",
-                message: `Erreur lors de l'ajout d'un nouvel élément`,
+                message: t(`Error while adding a new item`),
               });
             }
           } else {
             console.log(error);
             dispatch({
               type: "HANDLE_AFTER_ERROR",
-              message: `Erreur lors de l'ajout d'un nouvel élément`,
+              message: t(`Error while adding a new item`),
             });
           }
         });
@@ -191,7 +201,7 @@ const CmsFormContent = (props) => {
     >
       <div className="mt-8 md:mt-5 lg:mt-5">
         <FormTwoFieldOnLine
-          label1="Titre"
+          label1={t("Title")}
           type1="text"
           name1="title"
           value1={form.title}
@@ -206,7 +216,7 @@ const CmsFormContent = (props) => {
           error={titleSectionError}
         />
         <FormTextArea
-          label="Contenu"
+          label={t("Content")}
           type="text"
           name="content"
           value={form.content}
@@ -215,12 +225,13 @@ const CmsFormContent = (props) => {
           error={contentError}
         />
         <FormOneLineField
-          label="Url d'image"
+          label={t("Image url")}
           type="text"
           name="img"
           value={form.img}
           onChange={handleFormChange}
           mandatory={true}
+          error={imgError}
         />
       </div>
       <div className="flex space-x-4 mx-auto">

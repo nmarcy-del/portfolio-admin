@@ -8,8 +8,10 @@ import ModalCtaButton from "components/commons/modals/ModalCtaButton";
 import FormTwoFieldOnLine from "components/commons/modals/FormTwoFieldOnLine";
 import FormTextArea from "components/commons/modals/FormTextArea";
 import FormOneLineField from "components/commons/modals/FormOneLineField";
+import { useTranslation } from 'react-i18next';
 
 const WorksFormContent = (props) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,7 +30,7 @@ const WorksFormContent = (props) => {
   });
 
   const [descError, setDescError] = useState({message: null});
-  const [startDateError, setStartDateError] = useState({message: null});
+  const [startDateError, setStartDateError] = useState({message1: null});
   const [techError, setTechError]= useState({message: null});
 
   const handleFormChange = (event) => {
@@ -91,34 +93,34 @@ const WorksFormContent = (props) => {
   const handleSubmit = (form) => {
     console.log(form.endDate);
     if (!form.title || form.title === "") {
-      setTitlePlaceError({message1: "Veuillez saisir un titre"});
+      setTitlePlaceError({message1: t("Please enter a title")});
       return;
     } else {
       setTitlePlaceError({message1: null})
     }
     if (!form.place || form.place === "") {
-      setTitlePlaceError({message2: "Veuillez saisir un lieu"})
+      setTitlePlaceError({message2: t("Please enter a location")})
       return;
     } else {
       setTitlePlaceError({message2: null})
     }
     if (!form.desc || form.desc === "") {
-      setDescError({message: "Veuillez saisir une description"})
+      setDescError({message: t("Please enter a description")})
       return;
     } else {
       setDescError({message: null})
     }
     if (!form.technologies || form.technologies === "") {
-      setTechError({message: "Veuillez saisir des technologies"})
+      setTechError({message: t("Please enter technologies")})
       return;
     } else {
       setTechError({message: null})
     }
     if (!form.startDate || form.startDate === "") {
-      setStartDateError({message: "Veuillez saisir une date de début"})
+      setStartDateError({message1: t("Please enter a start date")})
       return;
     } else {
-      setStartDateError({message: null})
+      setStartDateError({message1: null})
     }
     
     if (form.endDate === "") {
@@ -138,7 +140,7 @@ const WorksFormContent = (props) => {
         .then((response) => {
           dispatch({
             type: "HANDLE_AFTER_SUCCESS",
-            message: `${props.itemName} à correctement été édité`,
+            message: `${props.itemName} ${t("has been successfully edited.")}`,
           });
         })
         .catch((error) => {
@@ -154,20 +156,20 @@ const WorksFormContent = (props) => {
             ) {
               dispatch({
                 type: "HANDLE_AFTER_WARNING",
-                message: `Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments.`,
+                message: t("This user does not have the necessary permissions to add, edit, or delete items."),
               });
             } else {
               console.log(error.response);
               dispatch({
                 type: "HANDLE_AFTER_ERROR",
-                message: `Erreur lors de l'édition de "${props.itemName}"`,
+                message: `${t("Error while editing")} "${props.itemName}"`,
               });
             }
           } else {
             console.log(error);
             dispatch({
               type: "HANDLE_AFTER_ERROR",
-              message: `Erreur lors de l'édition de "${props.itemName}"`,
+              message: `${t("Error while editing")} "${props.itemName}"`,
             });
           }
         });
@@ -184,7 +186,7 @@ const WorksFormContent = (props) => {
         .then((response) => {
           dispatch({
             type: "HANDLE_AFTER_SUCCESS",
-            message: `${form.title} à bien été ajouté`,
+            message: `${form.title} ${t("has been successfully added.")}`,
           });
         })
         .catch((error) => {
@@ -200,20 +202,20 @@ const WorksFormContent = (props) => {
             ) {
               dispatch({
                 type: "HANDLE_AFTER_WARNING",
-                message: `Cet utilisateur n'a pas les droit nécessaire pour ajouter, éditer ou supprimer des éléments.`,
+                message: t("This user does not have the necessary permissions to add, edit, or delete items."),
               });
             } else {
               console.log(error.response);
               dispatch({
                 type: "HANDLE_AFTER_ERROR",
-                message: `Erreur lors de l'ajout d'un nouvel élément`,
+                message: t("Error while adding a new item"),
               });
             }
           } else {
             console.log(error);
             dispatch({
               type: "HANDLE_AFTER_ERROR",
-              message: `Erreur lors de l'ajout d'un nouvel élément`,
+              message: t("Error while adding a new item"),
             });
           }
         });
@@ -230,7 +232,7 @@ const WorksFormContent = (props) => {
     >
       <div className="mt-8 md:mt-5 lg:mt-5 mb-0">
         <FormTwoFieldOnLine
-          label1="Titre"
+          label1={t("Title")}
           type1="text"
           name1="title"
           value1={form.title}
@@ -245,7 +247,7 @@ const WorksFormContent = (props) => {
           error={titlePlaceError}
         />
         <FormTextArea
-          label="Description"
+          label={t("Description")}
           type="text"
           name="desc"
           value={form.desc}
@@ -255,7 +257,7 @@ const WorksFormContent = (props) => {
           error={descError}
         />
         <FormTextArea
-          label="technologies"
+          label={t("Technologies")}
           type="text"
           name="technologies"
           value={form.technologies}
@@ -265,13 +267,13 @@ const WorksFormContent = (props) => {
           error={techError}
         />
         <FormTwoFieldOnLine
-          label1="De"
+          label1={`${t("From")}:`}
           type1="date"
           name1="startDate"
           value1={form.startDate}
           onChange1={handleFormChange}
           mandatory1={true}
-          label2="à :"
+          label2={`${t("to")}:`}
           type2="date"
           name2="endDate"
           value2={form.endDate}
@@ -279,7 +281,7 @@ const WorksFormContent = (props) => {
           error={startDateError}
         />
         <FormOneLineField
-          label="Url d'image"
+          label={t("Image url")}
           type="text"
           name="img"
           value={form.img}

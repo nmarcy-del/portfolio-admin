@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { BsSortDownAlt, BsSortUpAlt } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import AddButton from "components/commons/dashboard/AddButton";
+import { useTranslation, Trans } from 'react-i18next';
 
 const CardHeader = (props) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const newSortOrder = props.sortOrder === "asc" ? "desc" : "asc";
 
@@ -27,8 +29,8 @@ const CardHeader = (props) => {
 
   const orderProperty =
     props.apiUrl === "skills" || props.apiUrl === "tools"
-      ? "Ordre"
-      : "Date de début";
+      ? t("order")
+      : t("start date");
 
   return (
     <>
@@ -52,7 +54,10 @@ const CardHeader = (props) => {
               <span className="mr-2">
                 <BsSortUpAlt />
               </span>
-              <span>Trier par {orderProperty} desc</span>
+              <Trans i18nKey='sort-by-desc'>
+                <span></span>
+                {{orderProperty}}
+              </Trans>
             </button>
           )}
         {shouldDisplaySortOrderButton() && props.sortOrder === "desc" && (
@@ -60,7 +65,10 @@ const CardHeader = (props) => {
             <span className="mr-2">
               <BsSortDownAlt />
             </span>
-            <span>Trier par {orderProperty} asc</span>
+            <Trans i18nKey='sort-by-asc'>
+                <span></span>
+                {{orderProperty}}
+              </Trans>
           </button>
         )}
       </div>
